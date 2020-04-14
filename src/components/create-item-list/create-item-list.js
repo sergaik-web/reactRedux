@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, ListGroupItem } from "reactstrap";
+import { Button, ListGroupItem, ButtonGroup } from "reactstrap";
 import "./create-item-list.css";
 
 export default class CreateItemList extends Component {
@@ -11,7 +11,7 @@ export default class CreateItemList extends Component {
     };
   }
 
-  clickGroupItem = () => {
+  onAddItem = () => {
     this.setState(({ active }) => ({
       active: !active,
     }));
@@ -22,9 +22,18 @@ export default class CreateItemList extends Component {
       <ListGroupItem active={this.state.active} tag="a" href="#" action>
         {this.text}
 
-        <Button onClick={this.clickGroupItem} outline color="info">
-          {String(this.state.active)}
-        </Button>
+        <ButtonGroup style={{ marginLeft: "40px" }}>
+          <Button
+            onClick={this.onAddItem}
+            outline
+            color={this.state.active ? "danger" : "success"}
+          >
+            {this.state.active ? "Убрать блюдо" : "Включить в блюдо"}
+          </Button>
+          <Button onClick={this.props.onDeleteItem} outline color="danger">
+            Удалить
+          </Button>
+        </ButtonGroup>
       </ListGroupItem>
     );
   }

@@ -3,14 +3,18 @@ import { ListGroup } from "reactstrap";
 import CreateItemList from "../create-item-list";
 
 export default class CreateList extends Component {
-  constructor(props) {
-    super();
-    this.items = props.data;
-  }
+
 
   render() {
-    const itemList = this.items.map((elem, i) => {
-      return <CreateItemList {...elem} key={i} />;
+    const itemList = this.props.data.map((elements) => {
+      const { id, ...element } = elements;
+      return (
+        <CreateItemList
+          {...element}
+          onDeleteItem={()=>this.props.onDeleteItem(id)}
+          key={id}
+        />
+      );
     });
     return <ListGroup>{itemList}</ListGroup>;
   }
